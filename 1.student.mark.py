@@ -22,6 +22,7 @@ def input_data():
                 courses.append(course_infor)
                 break
 
+
     student_number=int(input("Number Student: "))
     for i in range(student_number):
         while True:
@@ -38,38 +39,42 @@ def input_data():
                 student_dob=input("Enter (DD/MM/YY): ")
                 student_infor=[student_id, student_name, student_dob]
                 students.append(student_infor)
+                print("-------------------------")
                 break
 
-    print("-------------------------")
-    select_course=input("Enter CourseID to mark: ")
-    found_course = True
-    for course in courses:
-        if(select_course==courses[0]):
-            found_course=True
-            break
-        if not found_course:
-            print(f"There is no CourseID:{select_course} in Courses!!")
-            return
-    for student in students:
-            lowest_mark =0
-            mark=float(input(f"Mark for ID:{student_id} is "))
-            if mark <0:
-                print("Mark lowest allow is 0!!")
-            while mark<lowest_mark:
-                mark=float(input("Pls enter mark allowed!!\nMark:"))
-                if mark>=lowest_mark:
-                    break
+    
+    while True:
+        select_course = int(input("Enter CourseID to mark:"))
 
-            marks[student_id,select_course]=mark
+        found = False
+        for course in courses:
+            if select_course ==course[0]:
+                found=True
+                break
+        if found==False:
+            print(f"Cant found COURSE with this ID:{select_course}\nPls Enter ID again")
+        else:
+            for student in students:
+                s_id=student[0]
+                s_name=student[1]
+                mark=float(input(f"Mark:\n{s_name} | {s_id} | "))
+
+                while mark<0:
+                    print("Mark cant be lower than 0")
+                    mark=float(input("Pls enter mark that allowed!!\nMark:"))
+                marks[s_id,select_course]=mark
+            break
 
     
-    print("-+--+-COURSES-+--+-")
-    print(courses)
-    print("-+--+-students-+--+-")
-    print(students)
-    print("--------------------")
-    for i in range(student_number):
-        print(f"Mark:{marks}")
-
+    print("\n\n")
+    print("_____Courses_____")
+    for course in courses:
+        print(course)
+    print("_____Student_____")
+    for student in students:
+        print(student)
+    print("_____DISPLAY_____ ")
+    for key,value in marks.items():
+        print(f"StudentID:{key[0]} | CourseID:{key[1]} | Mark:{value}")
 
 input_data()
