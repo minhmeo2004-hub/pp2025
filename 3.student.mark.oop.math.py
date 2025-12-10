@@ -102,7 +102,8 @@ class System:
                     while mark<0:
                         print("Mark cant be lower than 0")
                         mark=float(input("Pls enter mark that allowed!!\nMark:"))
-                    self.marks[s_id,select_course]=mark
+                        round_mark=mark.floor(mark*10)/10
+                    self.marks[s_id,select_course]=round_mark
                 break
     
     def cal_GPA(self):
